@@ -46,10 +46,14 @@ func Compare(line1, line2 string) (percent int, err error) {
 	}
 	shingles2 := splitShingles(line2)
 
-	shinglesLen := len(shingles1)
+	shinglesCount := len(shingles1)
 	diffCount := different(shingles1, shingles2)
 
-	percent = 100 * (shinglesLen - diffCount) / shinglesLen
+	if shinglesCount < diffCount {
+		return 0, nil
+	}
+
+	percent = 100 * (shinglesCount - diffCount) / shinglesCount
 
 	return
 }
